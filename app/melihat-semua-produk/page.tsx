@@ -1,6 +1,6 @@
-"use client";  // Add this line to indicate this is a client component
-
+"use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Product {
     productId: string;
@@ -11,6 +11,7 @@ interface Product {
     productPrice: number;
     productDiscountPrice: number;
 }
+
 const dummyProducts: Product[] = [
     {
         productId: '1',
@@ -20,7 +21,9 @@ const dummyProducts: Product[] = [
         productQuantity: 1,
         productPrice: 9999,
         productDiscountPrice: 9999,
-    }]
+    }
+];
+
 const ProductListPage: React.FC = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
@@ -47,11 +50,22 @@ const ProductListPage: React.FC = () => {
                         <h2 className="text-lg font-semibold">{product.productName}</h2>
                         <p className="text-gray-500">{product.productDescription}</p>
                         <p className="text-blue-500 font-bold">{product.productPrice}</p>
+                        <div className="mt-2">
+                            <Link href={`/update-product/`}>
+                                <button className="bg-green-500 text-white px-4 py-2 rounded-lg mr-2">Update Produk</button>
+                            </Link>
+                        </div>
                     </div>
                 ))}
+            </div>
+            <div className="mt-4">
+                <Link href="/create-product">
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">Tambah Produk</button>
+                </Link>
             </div>
         </div>
     );
 };
 
 export default ProductListPage;
+
