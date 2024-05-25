@@ -1,7 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
+
+interface Product {
+    productId: string;
+    productName: string;
+    productDescription: string;
+    productImage: string;
+    productQuantity: number;
+    productPrice: number;
+    productDiscountPrice: number;
+}
 
 const CreateProductPage: React.FC = () => {
     const [product, setProduct] = useState({
@@ -41,6 +52,7 @@ const CreateProductPage: React.FC = () => {
         try {
             const response = await axios.post("http://localhost:8080/products", formData);
             console.log("Created product:", response.data);
+            window.location.href = '/melihat-semua-produk';
         } catch (error) {
             console.error("Error creating product:", error);
         }
