@@ -12,7 +12,6 @@ export default function Home() {
       <Link href="/register" className="hover:scale-105 active:scale-95 active:opacity-70 transition-all bg-blue-primary w-28 justify-center flex rounded-lg py-1.5 font-semibold">
         Register
       </Link>
-     
     </main>
   );
 }
