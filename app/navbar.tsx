@@ -59,6 +59,9 @@ export default function Navbar() {
                   <NavLink href="/daftar-transaksi-produk" isActive={pathname === "/daftar-transaksi-produk"}>
                     Daftar Transaksi Produk
                   </NavLink>
+                  <NavLink href="/daftar-product" isActive={pathname === "/daftar-product"}>
+                    Dashboard Admin
+                  </NavLink>
                 </ul>
               </div>
               <div className="border-2 text-blue-primary border-blue-primary px-4 rounded-full hover:cursor-pointer transition-all hover:scale-110 hover:bg-blue-primary active:scale-95 active:brightness-75" onClick={handleLogout}>
