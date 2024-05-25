@@ -3,25 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation';
+import { createPromoCode, getPromoCodeById, updatePromoCode, deletePromoCode} from './api/crud-kodepromo'; // replace with the path to your api.js file
 
 // Definisi tipe data PromoCode
 type PromoCode = {
-  id: string;
-  name: string;
-  description: string;
-  discount: number;
-  minPurchase: number;
-  endDate?: Date | null;
+    id: string;
+    name: string;
+    description: string;
+    validDate: string;
+    minPurchase: number;
 };
 
 function PromoCRUD() {
-  const [promoList, setPromoList] = useState<PromoCode[]>([]);
   const [promoName, setPromoName] = useState('');
   const [promoDescription, setPromoDescription] = useState('');
   const [promoDiscount, setPromoDiscount] = useState('');
   const [promoMinPurchase, setPromoMinPurchase] = useState('');
   const [promoEndDate, setPromoEndDate] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const router = useRouter();
 
@@ -29,51 +27,56 @@ function PromoCRUD() {
     const searchParams = new URLSearchParams(window.location.search);
     const idParam = searchParams.get('id');
     if (idParam) {
-      // Lakukan sesuatu, misalnya mengambil data promo dari server menggunakan ID
-      console.log('ID promo yang akan diupdate:', idParam);
-      // Misalnya, Anda bisa memanggil fungsi untuk mengambil data promo dengan ID tersebut
-      // fetchPromoById(idParam);
-      // Set nilai editId agar form mengetahui bahwa kita sedang dalam mode pengeditan
       setEditId(idParam);
-      // Misalnya, mengisi formulir dengan data promo yang diperbarui
-      // fetchPromoData(idParam);
+      fetchPromoData(idParam);
     }
   }, []);
 
-  const handleSubmit = (event: React.FormEvent) => {
+const fetchPromoData = async (id: string) => {
+    try {
+        const promo = await getPromoCodeById(id);
+        if (promo) {
+            setPromoName(promo.name);
+            setPromoDescription(promo.description);
+            setPromoMinPurchase(promo.minPurchase.toString());
+            setPromoEndDate(promo.validDate ? new Date(promo.validDate).toISOString().substring(0, 10) : '');
+        }
+    } catch (error) {
+        console.error('Error fetching promo code:', error);
+    }
+};
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const newPromo: PromoCode = {
-      id: uuidv4(),
+      id: editId || uuidv4(),
       name: promoName.toUpperCase(),
       description: promoDescription,
-      discount: parseFloat(promoDiscount),
+      validDate: promoEndDate !== '' ? new Date(promoEndDate).toISOString() : '',
       minPurchase: parseFloat(promoMinPurchase),
-      endDate: promoEndDate !== '' ? new Date(promoEndDate) : null,
     };
-    if (editId) {
-      // Lakukan logika untuk update promo dengan editId yang sesuai
-      console.log('Melakukan update untuk promo dengan ID:', editId);
-      // Misalnya, panggil fungsi untuk melakukan update data promo
-      // updatePromoData(editId, newPromo);
-    } else {
-      // Lakukan logika untuk menambah promo baru
-      console.log('Menambah promo baru:', newPromo);
-      // Misalnya, panggil fungsi untuk menambah data promo baru
-      // addNewPromo(newPromo);
+    try {
+      if (editId) {
+        await updatePromoCode(editId, newPromo);
+        console.log('Promo code updated successfully');
+      } else {
+        await createPromoCode(newPromo);
+        console.log('Promo code created successfully');
+      }
+      resetForm();
+      router.push('/kode-promo-admin');
+    } catch (error) {
+      console.error('Error saving promo code:', error);
     }
-    // Setelah selesai, reset nilai-nilai formulir
-    resetForm();
-    router.push('/kode-promo-admin');
   };
 
-  // Fungsi untuk mereset nilai-nilai formulir setelah submit
   const resetForm = () => {
     setPromoName('');
     setPromoDescription('');
     setPromoDiscount('');
     setPromoMinPurchase('');
     setPromoEndDate('');
-    setEditId(null); // Reset nilai editId agar kembali ke mode penambahan
+    setEditId(null);
   };
 
   return (
@@ -139,10 +142,9 @@ function PromoCRUD() {
         </label>
         <button
           type="submit"
-          onClick={handleSubmit}
           className="hover:scale-105 active:scale-95 active:opacity-70 transition-all bg-blue-primary w-28 justify-center flex rounded-lg py-1.5 font-semibold text-white"
         >
-          {'Tambah'}
+          {editId ? 'Update' : 'Tambah'}
         </button>
       </form>
     </section>

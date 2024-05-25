@@ -60,7 +60,7 @@ export default function Navbar() {
                     Daftar Transaksi Produk
                   </NavLink>
                   <NavLink href="/crud-kode-promo" isActive={pathname === "/admin"}>
-                    Membuat Kode Promo
+                    Mendaftar Kode Promo
                   </NavLink>
                   <NavLink href="/pembelian" isActive={pathname === "/pembelian"}>
                     Pembelian
