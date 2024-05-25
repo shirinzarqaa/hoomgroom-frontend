@@ -53,14 +53,20 @@ export default function Navbar() {
             <div className="justify-between flex w-full">
               <div>
                 <ul className="flex gap-4 text-blue-primary">
-                  <NavLink href="/daftar-product" isActive={pathname === "/daftar-product"}>
+                  <NavLink href="/melihat-semua-produk" isActive={pathname === "/melihat-semua-produk"}>
                     Daftar Product
                   </NavLink>
                   <NavLink href="/daftar-transaksi-produk" isActive={pathname === "/daftar-transaksi-produk"}>
                     Daftar Transaksi Produk
                   </NavLink>
-                  <NavLink href="/daftar-product" isActive={pathname === "/daftar-product"}>
+                  <NavLink href="/admin" isActive={pathname === "/admin"}>
                     Dashboard Admin
+                  </NavLink>
+                  <NavLink href="/pembelian" isActive={pathname === "/pembelian"}>
+                    Pembelian
+                  </NavLink>
+                  <NavLink href="/top-up" isActive={pathname === "/top-up"}>
+                    Topup
                   </NavLink>
                 </ul>
               </div>
