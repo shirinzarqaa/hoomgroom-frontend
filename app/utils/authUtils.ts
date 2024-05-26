@@ -5,13 +5,13 @@ export const isLoggedIn = (): boolean => {
 };
 
 export const getUser = (): string => {
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-        const users = JSON.parse(userData);
-        const user = users.find((user: any) => user.username === 'admin');
-        if (user) {
-            return user.username;
-        }
+    const tokenUser = localStorage.getItem('token');
+    console.log("ini token datanya", tokenUser);
+    const username = localStorage.getItem('username');
+    console.log("ini username datanya", username);
+    
+    if (username === 'admin') {
+        return 'Admin';
     }
     return '';
 };
@@ -19,15 +19,11 @@ export const getUser = (): string => {
 export const logout = async (): Promise<void> => {
     try {
         const baseURL = 'http://localhost:8080';
-
-        await axios.post(`${baseURL}/auth/logout`, {}, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        });
+        console.log("masuk logout");
 
         localStorage.removeItem('token');
         localStorage.removeItem('userData');
+        localStorage.removeItem('username');
         window.location.href = '/';
     } catch (error) {
         console.error('Failed to logout:', error);
