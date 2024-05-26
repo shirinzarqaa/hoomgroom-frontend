@@ -69,7 +69,7 @@ export default function Navbar() {
             <div className="justify-between flex w-full">
               <div>
                 <ul className="flex gap-4 text-blue-primary">
-                  <NavLink href="/melihat-semua-product" isActive={pathname === "/trailer"}>
+                  <NavLink href="/melihat-semua-produk" isActive={pathname === "/trailer"}>
                     Daftar Product
                   </NavLink>
 

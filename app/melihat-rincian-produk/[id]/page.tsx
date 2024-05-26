@@ -51,16 +51,16 @@ const ProductDetailPage: React.FC = () => {
   }
 
   return (
-    <ProductCard
-            productId={product.productId}
-            productName={product.productName}
-            productDescription={product.productDescription}
-            productImage={product.productImage}
-            productQuantity={product.productQuantity}
-            productPrice={product.productPrice}
-            productDiscountPrice={product.productDiscountPrice}
-            productType={product.productType}
-          />
+    // <ProductCard
+    //         productId={product.productId}
+    //         productName={product.productName}
+    //         productDescription={product.productDescription}
+    //         productImage={product.productImage}
+    //         productQuantity={product.productQuantity}
+    //         productPrice={product.productPrice}
+    //         productDiscountPrice={product.productDiscountPrice}
+    //         productType={product.productType}
+    //       />
     // <div className="container mx-auto mt-8 min-h-screen bg-blue-200">
     //   <div className="flex">
     //     <div className="w-1/2">
@@ -78,6 +78,7 @@ const ProductDetailPage: React.FC = () => {
     //     </div>
     //   </div>
     // </div>
+    <div></div>
   );
 };
 
