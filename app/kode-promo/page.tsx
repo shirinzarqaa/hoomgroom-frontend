@@ -1,39 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { getAllPromoCodes } from './api/kode-promo'; // replace with the path to your api.js file
+
 
 type PromoData = {
     id: string;
     name: string;
     description: string;
     minPurchase: number;
-    expiryDate: string;
+    validDate: string;
 };
-
-const dummyPromoData: PromoData[] = [
-    {
-        id: "1",
-        name: "BELANJAHEMAT20",
-        description: "Diskon 20% untuk total pembelian.",
-        minPurchase: 50000,
-        expiryDate: "2024-06-30",
-    },
-    {
-        id: "2",
-        name: "RAMADHANSALE",
-        description: "Diskon khusus menyambut bulan Ramadhan.",
-        minPurchase: 100000,
-        expiryDate: "2024-07-10",
-    },
-    {
-        id: "3",
-        name: "JULYDISCOUNT",
-        description: "Diskon spesial untuk bulan Juli.",
-        minPurchase: 75000,
-        expiryDate: "2024-07-31",
-    }
-];
 
 const PromoCard = ({ promo }: { promo: PromoData }) => {
     return (
@@ -41,7 +19,7 @@ const PromoCard = ({ promo }: { promo: PromoData }) => {
             <h2 className="text-lg font-bold mb-2 text-blue-primary">{promo.name}</h2>
             <p className="text-sm text-gray-600 mb-2 text-blue-primary">{promo.description}</p>
             <p className="text-sm text-gray-600 mb-2 text-blue-primary">Minimal Pembelian: Rp. {promo.minPurchase.toLocaleString('id-ID')}</p>
-            <p className="text-sm text-gray-600 mb-2 text-blue-primary">Berakhir pada: {promo.expiryDate}</p>
+            <p className="text-sm text-gray-600 mb-2 text-blue-primary">Berakhir pada: {promo.validDate}</p>
             <Link href={`/pembelian?promo=${promo.name}`}>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2">Pilih</button>
             </Link>
@@ -49,7 +27,25 @@ const PromoCard = ({ promo }: { promo: PromoData }) => {
     );
 };
 
+
 export default function KodePromoPage() {
+    const [promoCodes, setPromoCodes] = useState<PromoData[]>([]);
+
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const data = await getAllPromoCodes();
+                console.log(data)
+                setPromoCodes(data);
+            } catch (error) {
+                console.error('Error fetching promo codes:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
 
     return (
         <section className="bg-primary min-h-screen flex flex-col items-center justify-center gap-4">
@@ -60,12 +56,12 @@ export default function KodePromoPage() {
                 </p>
             </div>
             <div className="container mx-auto py-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {dummyPromoData.map((promo) => (
-                    <PromoCard key={promo.id} promo={promo} />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {promoCodes.map((promo) => (
+                        <PromoCard key={promo.id} promo={promo} />
+                    ))}
+                </div>
             </div>
-        </div>
         </section>
     );
 }
