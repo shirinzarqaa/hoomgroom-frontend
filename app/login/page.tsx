@@ -7,7 +7,7 @@ export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { push } = useRouter();
-    const baseURL = 'http://localhost:8080';
+    const baseURL = 'http://35.233.214.189';
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();

@@ -18,7 +18,7 @@ export const getUser = (): string => {
 
 export const logout = async (): Promise<void> => {
     try {
-        const baseURL = 'http://localhost:8080';
+        const baseURL = 'http://35.233.214.189';
         console.log("masuk logout");
 
         localStorage.removeItem('token');

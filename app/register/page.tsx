@@ -12,7 +12,7 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [walletBalance, setWalletBalance] = useState(0);
     const { push } = useRouter();
-    const baseURL = 'http://localhost:8080'; // Ensure this URL is correct
+    const baseURL = 'http://35.233.214.189'; // Ensure this URL is correct
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
