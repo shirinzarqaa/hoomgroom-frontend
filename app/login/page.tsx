@@ -32,12 +32,14 @@ export default function Login() {
             }
 
             const data = await response.json();
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('userData', JSON.stringify(data.userData));
+            console.log(data);
+            localStorage.setItem('token', data.accessToken);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('userData', JSON.stringify(data));
 
             alert('Login successful! Redirecting to homepage...');
             setTimeout(() => {
-                push('/');
+                push('/homepage');
             }, 1500);
 
         } catch (error: any) {
