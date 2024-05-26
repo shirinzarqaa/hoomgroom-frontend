@@ -1,0 +1,279 @@
+{
+    "info": {
+        "name": "ProductControllerTest",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Product",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:8080/product",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Update Product",
+            "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:8080/product/{id}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "{id}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Delete Product",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/{id}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "{id}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Product",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/{id}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "{id}"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get All Products",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AllProduct",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AllProduct"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Products by Discount",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AllDiscountProduct",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AllDiscountProduct"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Products by Keyword",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AllKeywordProduct?keyword={keyword}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AllKeywordProduct"
+                    ],
+                    "query": [
+                        {
+                            "key": "keyword",
+                            "value": "{keyword}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Products by Max Price",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AllMaxProduct?max={max}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AllMaxProduct"
+                    ],
+                    "query": [
+                        {
+                            "key": "max",
+                            "value": "{max}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Products by Min Price",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AllMinProduct?min={min}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AllMinProduct"
+                    ],
+                    "query": [
+                        {
+                            "key": "min",
+                            "value": "{min}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Products by Price Range",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AllRangeProduct?min={min}&max={max}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AllRangeProduct"
+                    ],
+                    "query": [
+                        {
+                            "key": "min",
+                            "value": "{min}"
+                        },
+                        {
+                            "key": "max",
+                            "value": "{max}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get Products by Type",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/product/AlProductType?types={types}",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "product",
+                        "AlProductType"
+                    ],
+                    "query": [
+                        {
+                            "key": "types",
+                            "value": "{types}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}
