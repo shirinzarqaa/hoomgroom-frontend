@@ -3,7 +3,7 @@ const nextConfig = {
     async headers() {
     return [
         {
-            source: 'http://34.173.97.134/products/:path*',
+            source: '/products/:path*',
             headers: [
                 { key: 'Access-Control-Allow-Credentials', value: 'true' },
                 { key: 'Access-Control-Allow-Origin', value: '*' },
