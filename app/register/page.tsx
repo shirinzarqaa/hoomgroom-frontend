@@ -1,41 +1,66 @@
 "use client"
 
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
 
 export default function Register() {
-    const [namaLengkap, setNamaLengkap] = useState("");
-    const [tanggalLahir, setTanggalLahir] = useState("");
-    const [jenisKelamin, setJenisKelamin] = useState("");
+    const [fullname, setFullname] = useState("");
+    const [dob, setDob] = useState("");
+    const [sex, setSex] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [walletBalance, setWalletBalance] = useState(0);
     const { push } = useRouter();
+    const baseURL = 'http://localhost:8080'; // Ensure this URL is correct
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                namaLengkap,
-                tanggalLahir,
-                jenisKelamin,
-                username,
-                email,
-                password,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
+        const userData = {
+            fullname,
+            dob,
+            sex,
+            username,
+            email,
+            password,
+            walletBalance
+        };
+
+        try {
+            const response = await fetch(`${baseURL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Registration failed');
+            }
+
+            setFullname('');
+            setDob('');
+            setSex('');
+            setUsername('');
+            setEmail('');
+            setPassword('');
+            setWalletBalance(0);
+
+            setTimeout(() => {
                 push('/login');
-            })
-            .catch(error => alert(error.message));
+            }, 1500);
+
+        } catch (error: unknown) {
+            console.error("Registration error:", error);
+            if (error instanceof Error) {
+                alert(error.message);
+            } else {
+                alert('An unexpected error occurred');
+            }
+        }
     }
 
     return (
@@ -50,7 +75,7 @@ export default function Register() {
                             placeholder="Nama Lengkap"
                             required
                             className="border-4 transition-all border-solid rounded-lg px-3 py-1.5 w-full bg-white text-black focus:border-blue-primary"
-                            onChange={(event) => setNamaLengkap(event.target.value)}
+                            onChange={(event) => setFullname(event.target.value)}
                         />
                     </label>
                     <label className="flex flex-col gap-2">
@@ -60,7 +85,7 @@ export default function Register() {
                             placeholder="Tanggal Lahir"
                             required
                             className="border-4 transition-all border-solid rounded-lg px-3 py-1.5 w-full bg-white text-black focus:border-blue-primary"
-                            onChange={(event) => setTanggalLahir(event.target.value)}
+                            onChange={(event) => setDob(event.target.value)}
                         />
                     </label>
                     <label className="flex flex-col gap-2">
@@ -70,7 +95,7 @@ export default function Register() {
                             placeholder="Jenis Kelamin"
                             required
                             className="border-4 transition-all border-solid rounded-lg px-3 py-1.5 w-full bg-white text-black focus:border-blue-primary"
-                            onChange={(event) => setJenisKelamin(event.target.value)}
+                            onChange={(event) => setSex(event.target.value)}
                         />
                     </label>
                 </div>

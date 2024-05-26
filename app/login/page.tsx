@@ -1,19 +1,48 @@
-"use client"
+"use client";
 
-import React from "react";
-import { useState } from "react";
-import { useAuth } from "@/app/contexts/authContext";
+import React, { useState } from "react";
+import { useRouter } from 'next/navigation';
 
-export default function Register() {
-    const { login } = useAuth();
+export default function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { push } = useRouter();
+    const baseURL = 'http://localhost:8080';
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        login(username, password)
+        const loginData = {
+            username,
+            password
+        };
+
+        try {
+            const response = await fetch(`${baseURL}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Login failed');
+            }
+
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('userData', JSON.stringify(data.userData));
+
+            alert('Login successful! Redirecting to homepage...');
+            setTimeout(() => {
+                push('/');
+            }, 1500);
+
+        } catch (error: any) {
+            alert(error.message || 'An unexpected error occurred');
+        }
     }
 
     return (
