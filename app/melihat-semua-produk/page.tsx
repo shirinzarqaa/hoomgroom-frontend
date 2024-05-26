@@ -78,17 +78,17 @@ const ProductsPage: React.FC = () => {
   
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container">
       <Navbar />
-      <div className="flex justify-center mt-20">
-        <SearchBar onSearch={handleSearch} />
-        <div className="w-2"></div>
-        <button
-          onClick={toggleDrawer}
-          className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition-all"
-        >
-          Filter
-        </button>
+      <div className="flex justify-center pt-20 pb-8">
+          <SearchBar onSearch={handleSearch} />
+          <div className="w-2"></div>
+          <button
+            onClick={toggleDrawer}
+            className="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600 transition-all"
+          >
+            Filter
+          </button>
       </div>
       <FilterProducts isOpen={isDrawerOpen} onClose={toggleDrawer} onFilter={handleFilter} />
       <div className="grid grid-cols-3 gap-4 mt-8 min-h-screen">

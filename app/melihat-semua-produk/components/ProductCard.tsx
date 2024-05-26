@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   productType,
 }) => {
   return (
-    <Link href={`/melihat-rincian-produk/${productId}`} className="product-card border p-4 rounded-lg shadow-md">
+    <Link href={`/melihat-rincian-produk/${productId}`} className="product-card border p-4 rounded-lg shadow-md bg-white">
       <img src={productImage} alt={productName} className="w-full h-48 object-cover" />
       <h3 className="text-lg font-semibold mt-2">{productName}</h3>
       <p className="text-gray-600">{productDescription}</p>
