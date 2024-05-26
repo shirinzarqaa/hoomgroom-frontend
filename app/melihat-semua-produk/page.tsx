@@ -98,6 +98,7 @@ const ProductsPage: React.FC = () => {
       {filteredProducts.map(product => {
         return (
           <ProductCard
+            key={product.productId} // Add key prop here
             productId={product.productId}
             productName={product.productName}
             productDescription={product.productDescription}
