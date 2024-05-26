@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { getAllProducts } from './api/products'; // Pastikan impor fungsi API
+import { getAllProducts, getProductsByDiscount, getProductsByKeyword, getProductsByMaxPrice, getProductsByMinPrice, getProductsByPriceRange, getProductsByType } from './api/products'; // Pastikan impor fungsi API
 import FilterProducts from './components/FilterDrawer';
 import SearchBar from './components/SearchBar';
 import Navbar from '../navbar';
@@ -53,20 +53,23 @@ const ProductsPage: React.FC = () => {
     }
   };
 
-  const handleFilter = (filters: { type?: string; minPrice?: number; maxPrice?: number; hasDiscount?: boolean }) => {
+  const handleFilter = async (filters: { type?: string; minPrice?: number; maxPrice?: number; hasDiscount?: boolean }) => {
     let filtered = products;
 
     if (filters.type) {
-      filtered = filtered.filter(product => product.productType.includes(filters.type as string));
+      filtered = await getProductsByType(filters.type);
     } 
     if (filters.minPrice !== undefined) {
-      filtered = filtered.filter(product => product.productPrice >= (filters.minPrice ?? 0));
+      filtered = await getProductsByMinPrice(filters.minPrice);
     }
     if (filters.maxPrice !== undefined) {
-      filtered = filtered.filter(product => product.productPrice <= (filters.maxPrice ?? 0));
+      filtered = await getProductsByMaxPrice(filters.maxPrice);
     }
     if (filters.hasDiscount) {
-      filtered = filtered.filter(product => product.productDiscountPrice);
+      filtered = await getProductsByDiscount();
+    }
+    if (filters.minPrice !== undefined && filters.maxPrice !== undefined) {
+      filtered = await getProductsByPriceRange(filters.minPrice, filters.maxPrice);
     }
 
     setFilteredProducts(filtered);
