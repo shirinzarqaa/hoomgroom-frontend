@@ -1,6 +1,6 @@
 'use client'
 
-import { createPengiriman, updatePengirimanState, updatePengirimanTransportation } from './pengiriman';
+import { createPengiriman, updatePengirimanState, updatePengirimanTransportation } from './api/pengiriman';
 import React, { useState } from 'react';
 
 interface Product {
